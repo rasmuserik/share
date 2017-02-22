@@ -31,7 +31,7 @@ server = require("http").createServer((req, res) => {
       return res.end("no redirect at '/" + id + "'");
     }
     if(!(uri.startsWith("http://") || uri.startsWith("https://"))) {
-      return res.end("error: uri must start with http:// or https://");
+      return res.end("error: uri must start with http:// or https://", uri);
     }
     db.put(id, uri, (err) => res.end(err ? 'error' : 'ok'))
   });

@@ -36,9 +36,9 @@ function updateId() {
 }
 updateId();
 function makeRedirect() {
-  result.src = '/' + encodeURIComponent(id.value) + '/' + url.value;
+  result.src = '/' + encodeURIComponent(id.value) + '/' + encodeURIComponent(url.value);
   setTimeout(() =>
-      result.src = '/' + encodeURIComponent(id.value) + '/' + url.value, 
+      result.src = '/' + encodeURIComponent(id.value) + '/' + encodeURIComponent(url.value),
       300);
 }
     </script>
