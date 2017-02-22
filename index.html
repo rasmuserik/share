@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <style>
+body {
+  font: 16px sans-serif;
+  margin-left: 10px;
+}
+  </style>
+  <body>
+    <img src=icon.png height=32px width=32px style=float:right>
+    <p style=font-weight:bold>Simple url-shortener and links for sharing on social medias.</p>
+    http://share.solsort.com/<input id=id onkeyup=updateId()> should redirect to:
+    <p><input id=url style=width:100% placeholder="https://example.com/ enter url here"></p>
+    <button onclick=makeRedirect()>Make redirect</button>
+    <hr>
+    Sharing links:
+    <ul id=links></ul>
+    <hr>
+    <p>Content of redirect:</p>
+    <iframe id=result width=100%></iframe>
+    <script>
+id.value = id.value || location.hash.slice(1) || Math.random().toString(36).slice(2,10);
+function updateResult() {
+  result.src = '/' + id.value;
+}
+function updateId() {
+  location.hash = id.value;
+  var u = location.origin + '/' + encodeURIComponent(id.value);
+  links.innerHTML = [u,
+  `https://twitter.com/home?status=${u}`,
+  `https://www.facebook.com/sharer/sharer.php?u=${u}`,
+  `https://www.linkedin.com/shareArticle?mini=true&url=${u}&title=${encodeURIComponent(id.value)}`,
+  `mailto:?&body=${u}`,
+  `sms:?&body=${u}`].map(s => `<li><a href="${s}">${s}</a></li>`).join('');
+  updateResult();
+}
+updateId();
+function makeRedirect() {
+  result.src = '/' + encodeURIComponent(id.value) + '/' + url.value;
+  setTimeout(() =>
+      result.src = '/' + encodeURIComponent(id.value) + '/' + url.value, 
+      300);
+}
+    </script>
+
+    <script>document.write('<script src="//incoming.solsort.com/log.js?' + location.protocol + '//' + location.host + location.pathname + location.search + '"></s' + 'cript>');</script>
+  </body>
+</html>
